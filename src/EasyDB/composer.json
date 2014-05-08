@@ -1,0 +1,24 @@
+{
+    "name": "root/easy-db",
+    "description": "Script for easy databse searching",
+    "authors": [
+        {
+            "name": "Anže Matelič",
+            "email": "amatelic93@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.0.*@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/database"
+        }
+    }
+
+}
