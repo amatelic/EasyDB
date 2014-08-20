@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<database name="test">
+	<table_data name="users">
+	<row>
+		<field name="id">1</field>
+		<field name="username">amatelic</field>
+		<field name="age">21</field>
+		<field name="email">amatelic93@gmail.com</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="username">zmatelic</field>
+		<field name="age">15</field>
+		<field name="email">zmatelic99@gmail.com</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="username">matej</field>
+		<field name="age">20</field>
+		<field name="email">matej@gmail.com</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="username">tilen</field>
+		<field name="age">19</field>
+		<field name="email">tilen.k@gmail.com</field>
+	</row>
+	</table_data>
+</database>
+</mysqldump>

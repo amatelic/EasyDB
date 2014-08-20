@@ -1,0 +1,19 @@
+{
+    "name": "vagrant/easy-db",
+    "description": "Easy database search (mysql && mongodb)",
+    "require": {
+        "phpunit/dbunit": "1.3.0"
+    },
+    "autoload":{
+        "psr-4": {
+            "EasyDB\\": "src/EasyDB"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aneže Matelič",
+            "email": "amatelic@gmail.com"
+        }
+    ]
+}
