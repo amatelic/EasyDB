@@ -38,13 +38,13 @@ update        | no
 
 ```php
 	$db = DB::table("user");
- 	$test->get();
+ 	$db->get();
 ```
 
 ##Searching data with where expresion in database  
 
 ```php
 	$db = DB::table("user");
- 	$test->where("username", "=", "matej")->get();
+ 	$db->where("username", "=", "matej")->get();
 ```
 
