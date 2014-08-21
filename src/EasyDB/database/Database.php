@@ -2,8 +2,9 @@
 interface Database{
 	public function get();		
 	public function select($query);
-	public function delete($query);
-	public function update($query);
+	public function insert($insert, $insert);
+	public function delete($fields, $insert);
+	public function update($fields, $insert);
 	public function max();
 	public function min();
 	public function orderBy($query);

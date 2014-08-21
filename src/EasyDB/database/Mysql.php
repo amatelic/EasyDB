@@ -85,10 +85,22 @@ class Mysql implements Database
 		return [ $outputString, $outputArray ];
 
 	}
-	public function delete($query){
+	public function delete($fields, $insert){
 
 	}
-	public function update($query){
+	public function update($fields, $insert){
+
+	}
+	public function insert($fields, $insert){
+
+		$fields = is_array($fields)? $fields : [$fields];
+		$insert = is_array($insert)? $insert : [$insert];
+		$count = preg_replace('/,$/gm', str_repeat("? ,", count($fields)), "");
+ 		var_dump($fields);
+ 		return $count;
+
+		// return $this->db->query("SELECT {$this->parameters} FROM {$this->table}");	
+		// "INSERT INTO test(id) VALUES (?)")
 
 	}
 	public function max()

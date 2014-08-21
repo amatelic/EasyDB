@@ -59,6 +59,12 @@ class MysqlDbTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('tilen', $this->database->get()[3]->username);
         $this->assertEquals("19", $this->database->get()[3]->age);
     }
+    public function testGetSpecificValueWithWhere()
+    {
+        $quire = $this->database->where("username", "=", "amatelic")->get();
+        $this->assertEquals(1, count($quire));
+        $this->assertEquals('amatelic', $quire[0]->username);
+    }
     public function tearDown()
     {
         $this->database = null; 
