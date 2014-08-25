@@ -53,7 +53,17 @@ class Mysql implements Database
 		array_push( $this->querys, $queryData );
 		return $this;
 	}
-	public function select( $data = null ){
+	public function andwhere($field, $operator, $value)
+	{	
+
+		$queryData = ['criteria' => 'where|and','fiel' => $field, 
+						'operator' => $operator, 'value' => $value];
+	
+		array_push( $this->querys, $queryData );
+		return $this;
+	}
+	private function select( $data = null ){
+		$this->querys = [];
 		if ( $data ) {
 			return $this->db->query("SELECT {$this->parameters} FROM {$this->table} 
 					{$data[0]} ", $data[1]);
@@ -85,22 +95,29 @@ class Mysql implements Database
 		return [ $outputString, $outputArray ];
 
 	}
+	public function dropTable($table)
+	{
+		$this->db->query("DROP TABLE {$table}");
+	}
 	public function delete($fields, $insert){
 
 	}
 	public function update($fields, $insert){
-
+		$fields = implode("  = ?, ",is_array($fields)? $fields : [$fields]);
+		$insert = is_array($insert)? $insert : [$insert];
+		$String = str_repeat("", count($insert));
+ 		$prepered = preg_replace('/(\,)$/', '', $String);
+		$dataQuery = $this->convertQuery( $this->querys );
+		$this->querys = [];
+		return $this->db->query(" UPDATE  {$this->table} SET " . $fields . " = ? " . $dataQuery[0] , array_merge($insert, $dataQuery[1]));
 	}
 	public function insert($fields, $insert){
 
-		$fields = is_array($fields)? $fields : [$fields];
+		$fields = implode(",",is_array($fields)? $fields : [$fields]);
 		$insert = is_array($insert)? $insert : [$insert];
-		$count = preg_replace('/,$/gm', str_repeat("? ,", count($fields)), "");
- 		var_dump($fields);
- 		return $count;
-
-		// return $this->db->query("SELECT {$this->parameters} FROM {$this->table}");	
-		// "INSERT INTO test(id) VALUES (?)")
+		$String = str_repeat("?,", count($insert));
+ 		$prepered = preg_replace('/(\,)$/', '', $String);
+		return $this->db->query("INSERT INTO {$this->table}($fields) VALUES ($prepered)", $insert);	
 
 	}
 	public function max()
@@ -121,10 +138,5 @@ class Mysql implements Database
 		// array_push($this->sql_data, [ 'orders' => "ORDER BY id {$order}"]);
 		// return $this;
 		
-	}
-
-	public function __call($name, $arguments){
-		$test = preg_split('/(?=[A-Z])/', $name, -1, PREG_SPLIT_OFFSET_CAPTURE);
-		return $test;
 	}
 }

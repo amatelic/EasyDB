@@ -8,6 +8,8 @@ class MysqlDbTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+
+
         $conf = array(
             'hostname' => 'localhost',
             'database' => 'test',
@@ -15,25 +17,15 @@ class MysqlDbTest extends PHPUnit_Framework_TestCase
             'username' => 'root',
             'password' => 'root'
         );
+
+        //Loading  sql script with data
+        $command = "mysql -u{$conf['username']} -p{$conf['password']} "
+        . "-h {$conf['hostname']} -D {$conf['database']} < ";
+
+        $output = shell_exec($command . 'tests/_files/user.sql');  
+
         $this->database = new Mysql($conf); 
         $this->databaseFields = new Mysql($conf, array("email", "age")); 
-    }
-    public function getConnection()
-    {
-         
-        self::$dbh = new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
-
-        return $this->createDefaultDBConnection(self::$dbh, 'users');    }
-
-    /**
-     * @return PHPUnit_Extensions_Database_DataSet_IDataSet
-     */
-    public function getDataSet()
-    {
-        $ds1 = $this->createMySQLXMLDataSet('tests/_files/user.xml');
-        $compositeDs = new PHPUnit_Extensions_Database_DataSet_CompositeDataSet();
-        $compositeDs->addDataSet($ds1);
-        return $compositeDs;
     }
     public function testGetsFirstResolt()
     {
@@ -65,8 +57,35 @@ class MysqlDbTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1, count($quire));
         $this->assertEquals('amatelic', $quire[0]->username);
     }
+    public function testInsertNewValue()
+    {
+        $this->database->insert('username', 'klemen');
+        $quire = $this->database->get();
+        $this->assertEquals(5, count($quire));
+        $this->assertEquals("klemen", $quire[4]->username);
+
+    }
+    public function testInsertMultipleNewValue()
+    {
+        $this->database->insert(['username','age'], ['klemen', '11']);
+        $quire = $this->database->get();
+        $this->assertEquals(5, count($quire));
+        $this->assertEquals("klemen", $quire[4]->username);
+        $this->assertEquals(11, $quire[4]->age);
+
+    }
+    public function testUpdate()
+    {
+       $this->database->where("username","=", "amatelic")->update("age","12");
+       $this->assertEquals(12, $this->database->first()->age); 
+       $this->database->where("username","=", "tilen")->update(["username","age"],["tom","12"]); 
+       $this->assertEquals("tom", $this->database->get()[3]->username); 
+       $this->assertEquals(12, $this->database->get()[3]->age);  
+
+    }
     public function tearDown()
     {
+        $this->database->dropTable("users");
         $this->database = null; 
         $this->databaseFields = null; 
     }

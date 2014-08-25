@@ -12,13 +12,14 @@ get           | yes
 first 		  | yes
 where         | yes
 orwhere 	  | yes
-insert		  | no
+insert		  | yes
 delete		  | no
-update        | no
+update        | yes
+dropTable     | yes
 
 ##Basic table of mysql commands working and not
 
-commands		  | completed
+commands	  | completed
 ------------- | -------------
 get           | no
 first 		  | no
@@ -38,13 +39,32 @@ update        | no
 
 ```php
 	$db = DB::table("user");
- 	$test->get();
+ 	$db->get();
 ```
 
 ##Searching data with where expresion in database  
 
 ```php
 	$db = DB::table("user");
- 	$test->where("username", "=", "matej")->get();
+ 	$db->where("username", "=", "matej")->get();
+```
+##How to insert into database 
+
+```php
+	$db = DB::table("user");
+
+  //Single value
+  	$db->insert('username', 'klemen');
+  //Or multiple value
+  	$db->insert(['username','age'], ['klemen', '11']);
 ```
 
+##How to update filds
+
+```php
+	$db = DB::table("user");
+
+  //Single value
+  	$db->where("username","=", "amatelic")->update("age","12");
+
+```
