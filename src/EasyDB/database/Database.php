@@ -1,7 +1,6 @@
 <?php namespace EasyDB\database;
 interface Database{
 	public function get();		
-	public function select($query);
 	public function insert($insert, $insert);
 	public function delete($fields, $insert);
 	public function update($fields, $insert);
