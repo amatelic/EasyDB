@@ -18,4 +18,20 @@ class Validation
 	{
 		return htmlspecialchars(trim($string), ENT_QUOTES);
 	}
+	public function allowedInputValues( $inputs )
+	{
+		$inputs_array = [];
+		/**
+		*
+		* Filtering all data in array 
+		* and checking if array values are empty
+		**/
+		
+		foreach ($inputs as  $value) {
+			if ( !empty($value) ) {
+				array_push($inputs_array, $value);
+			}
+		}
+		return $inputs_array;
+	}
 }	

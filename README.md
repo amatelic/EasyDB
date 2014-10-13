@@ -3,6 +3,10 @@ EasyDB
 
 EasyDb is a helper class for easier serching in databases.
 
+##Info 
+
+For changing the driver you have to change the driver variable in the file
+src/EasyDB/config/database.php
 
 ##Basic table of mysql commands working and not
 
@@ -21,8 +25,8 @@ dropTable     | yes
 
 commands	  | completed
 ------------- | -------------
-get           | no
-first 		  | no
+get           | yes
+first 		  | yes
 where         | no
 orwhere 	  | no
 insert		  | no

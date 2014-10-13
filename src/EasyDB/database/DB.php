@@ -8,9 +8,13 @@ class DB
     public static function table( $table, $param = null){
 
         $conf = new Conf("database");
+
+        //Getting the name of the selected driver 
         $reflectorClass = $conf->getClass();
 
-        return new $reflectorClass($conf->getdbConf( $table ), $table, $param );
+
+        // initilalizing reflector class
+        return new $reflectorClass($conf->getdbConf(), $table, $param );
     }
 
 }

@@ -5,9 +5,10 @@
 
 return array(
 
-	// Driver chosen 
+	// Driver to chose 
 
-	"driver" => "Mysql",
+
+	"driver" => "Mongo",
 
 
 	// Configuration for mysql database connection
@@ -23,6 +24,11 @@ return array(
 	// Configuration for mysql database connection
 
 	"Mongo" => array(
+		'hostname' => '',
+		'database' => 'users',
+		'table' => 'collection',
+		'username' => 'root',
+		'password' => 'root' 
 
 	)
 

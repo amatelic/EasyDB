@@ -14,7 +14,7 @@ class Mysql implements Database
 	private $querys = [];
 	public function __construct($conf, $table, $filds = []){
 
-		$this->table = $table; //referenc to table
+		$this->table = ($table)? $table : $conf['table']; //referenc to table
 		$this->parameters = ($filds)? implode(",", $filds) : "*"; 
 		$this->validation = new Validation(); 
 		$this->db = new MysqlDB( $conf );
